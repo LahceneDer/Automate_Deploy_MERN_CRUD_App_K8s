@@ -13,7 +13,9 @@ RUN npm install
 # Copy the rest of the application code to the working directory
 COPY . .
 
-# Build the application
+#Build the application
+RUN npm i @popperjs/core
+
 RUN npm run build
 
 # Set the command to run the application
