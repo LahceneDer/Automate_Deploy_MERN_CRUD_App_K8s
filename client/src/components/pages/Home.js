@@ -7,6 +7,7 @@ function Home() {
 	return (
 		<div className="container">
 			<h1>MERN Stack CRUD</h1>
+			<h2>{ process.env.REACT_APP_CLIENT_NAME } Application </h2>
 			<p>
 				<b>Front-end</b>: React.js v17+ with RRDv6+
 			</p>

@@ -9,13 +9,11 @@ COPY package*.json ./
 
 # Install the dependencies
 RUN npm install
-
+RUN npm i @popperjs/core
 # Copy the rest of the application code to the working directory
 COPY . .
 
 #Build the application
-RUN npm i @popperjs/core
-
 RUN npm run build
 
 # Set the command to run the application

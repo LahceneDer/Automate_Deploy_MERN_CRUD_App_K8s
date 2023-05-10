@@ -1,0 +1,7 @@
+frontend:
+  backendApiUrl: ""
+backend:
+  clientName: ""
+  nodePort: ""
+  mongoDBURI: ""
+

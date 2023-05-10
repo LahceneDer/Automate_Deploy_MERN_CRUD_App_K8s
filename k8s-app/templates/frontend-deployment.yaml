@@ -1,0 +1,40 @@
+# frontend-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  namespace: "{{ .Values.backend.clientName }}-ns"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: lahcenedergham/k8s-frontend-app
+          env:
+            - name: CLIENT_NAME
+              value: "{{ .Values.backend.clientName }}"
+            - name: REACT_APP_BACKEND_HOST
+              value: "{{ .Values.frontend.backendApiUrl }}"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: "{{ .Values.backend.clientName }}-ns"
+spec:
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+      nodePort: {{ .Values.frontend.nodePort }}
+  type: LoadBalancer
+
