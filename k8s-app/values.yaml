@@ -1,5 +1,6 @@
 frontend:
   backendApiUrl: ""
+  nodePort: ""
 backend:
   clientName: ""
   nodePort: ""

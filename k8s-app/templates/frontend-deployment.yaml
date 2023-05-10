@@ -29,6 +29,7 @@ metadata:
   name: frontend-service
   namespace: "{{ .Values.backend.clientName }}-ns"
 spec:
+  type: NodePort
   selector:
     app: frontend
   ports:
@@ -36,5 +37,4 @@ spec:
       port: 80
       targetPort: 3000
       nodePort: {{ .Values.frontend.nodePort }}
-  type: LoadBalancer
 

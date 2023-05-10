@@ -31,6 +31,7 @@ metadata:
   name: backend-service
   namespace: "{{ .Values.backend.clientName }}-ns"
 spec:
+  type: NodePort
   selector:
     app: backend-api
   ports:
@@ -38,5 +39,4 @@ spec:
       port: 8080
       targetPort: 8080
       nodePort: {{ .Values.backend.nodePort }}
-  type: NodePort
 
