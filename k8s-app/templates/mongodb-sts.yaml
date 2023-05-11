@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongodb-sts
-  namespace: "{{ .Values.backend.clientName }}-ns"
+  namespace: "{{ .Values.clientName }}-ns"
 spec:
   serviceName: mongodb-service
   replicas: 1
@@ -31,16 +31,17 @@ spec:
                   name: mongo-secret
                   key: mongo-password
             - name: MONGO_INITDB_DATABASE
-              value: "{{ .Values.backend.clientName }}"
+              value: '{{ .Release.Name }}-{{ .Values.clientName }}'
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: mongodb-service
+  namespace: "{{ .Values.clientName }}-ns"
 spec:
   selector:
     app: mongodb
   ports:
     - protocol: TCP
-      port: 27017
+      port: 27019 #{{ .Values.mongo.servicePort }}
       targetPort: 27017

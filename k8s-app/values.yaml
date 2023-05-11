@@ -1,8 +1,11 @@
+
+
+clientName: ''
 frontend:
   backendApiUrl: ""
   nodePort: ""
 backend:
-  clientName: ""
   nodePort: ""
   mongoDBURI: ""
-
+mongo:
+  servicePort: ''

@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-api
-  namespace: "{{ .Values.backend.clientName }}-ns"
+  namespace: "{{ .Values.clientName }}-ns"
 spec:
   replicas: 1
   selector:
@@ -21,7 +21,7 @@ spec:
             - containerPort: 8080
           env:
             - name: CLIENT_NAME
-              value: "{{ .Values.backend.clientName }}"
+              value: "{{ .Values.clientName }}"
             - name: MONGODB_URI
               value: "{{ .Values.backend.mongoDBURI }}"
 ---
@@ -29,7 +29,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: backend-service
-  namespace: "{{ .Values.backend.clientName }}-ns"
+  namespace: "{{ .Values.clientName }}-ns"
 spec:
   type: NodePort
   selector:
