@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate  } from 'react-router-dom';
+import axios from 'axios';
+
 
 function ClientInfoForm() {
   const navigate = useNavigate();
@@ -7,20 +9,30 @@ function ClientInfoForm() {
   const [email, setEmail] = useState('');
   const [subscription, setSubscription] = useState('free');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Do something with the captured client information, e.g., send it to a server
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Subscription:', subscription);
-    
-    // Reset the form fields
-    setName('');
-    setEmail('');
-    setSubscription('');
-
-    // Redirect to the success page
+  const handleSubmit = async (e) => {
     navigate('/success');
+    e.preventDefault();
+    try {
+      // Do something with the captured client information, e.g., send it to a server
+      await axios.post('http://localhost:3000/client-info', {
+        name,
+        email,
+        subscription,
+      });
+
+      console.log('Name:', name);
+      console.log('Email:', email);
+      console.log('Subscription:', subscription);
+
+      // Reset the form fields
+      setName('');
+      setEmail('');
+      setSubscription('');
+
+      // Redirect to the success page
+    } catch (error) {
+      console.error('An error occurred while submitting the form:', error);
+    }
   };
 
   return (

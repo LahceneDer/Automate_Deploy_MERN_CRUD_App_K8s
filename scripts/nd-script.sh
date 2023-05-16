@@ -1,13 +1,9 @@
 #!/bin/bash
 
-# Get the client name from the script argument
-CLIENT_NAME=$1
-
-# Check if the client name is provided
-if [ -z "$CLIENT_NAME" ]; then
-  echo "Error: Client name is required."
-  exit 1
-fi
+# Get the client name from the user
+echo -n "Enter the client name: "
+read CLIENT_NAME
+echo ""
 
 # Hash the client name using a hashing algorithm (e.g., SHA256)
 CLIENT_NAME_HASH=$(echo -n "$CLIENT_NAME" | sha256sum | awk '{print $1}')
