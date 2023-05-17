@@ -14,7 +14,7 @@ function ClientInfoForm() {
     e.preventDefault();
     try {
       // Do something with the captured client information, e.g., send it to a server
-      await axios.post('http://localhost:3000/client-info', {
+      await axios.post('http://57.128.87.190:3001/', {
         name,
         email,
         subscription,

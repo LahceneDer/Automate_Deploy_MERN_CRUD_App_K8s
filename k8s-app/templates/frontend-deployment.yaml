@@ -18,7 +18,7 @@ spec:
         - name: frontend
           image: lahcenedergham/k8s-frontend-app
           env:
-            - name: CLIENT_NAME
+            - name: REACT_APP_CLIENT_NAME
               value: "{{ .Values.clientName }}"
             - name: REACT_APP_BACKEND_HOST
               value: "{{ .Values.frontend.backendApiUrl }}"
@@ -36,5 +36,5 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 3000
-      nodePort: {{ .Values.frontend.nodePort }}
+        # nodePort: {{ .Values.frontend.nodePort }}
 
