@@ -22,6 +22,8 @@ spec:
               value: "{{ .Values.clientName }}"
             - name: REACT_APP_BACKEND_HOST
               value: "{{ .Values.frontend.backendApiUrl }}"
+            - name: REACT_APP_SUBSCRIPTION
+              value: "{{ .Values.frontend.subscription }}"
 ---
 apiVersion: v1
 kind: Service

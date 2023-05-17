@@ -4,6 +4,7 @@ clientName: ''
 frontend:
   backendApiUrl: ""
   nodePort: ""
+  subscription: ''
 backend:
   nodePort: ""
   mongoDBURI: ""

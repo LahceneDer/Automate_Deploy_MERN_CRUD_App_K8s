@@ -8,23 +8,7 @@ function Home() {
 		<div className="container">
 			<h1>MERN Stack CRUD</h1>
 			<h2>{ process.env.REACT_APP_CLIENT_NAME } Application </h2>
-			<p>
-				<b>Front-end</b>: React.js v17+ with RRDv6+
-			</p>
-			<p>
-				<b>Back-end</b>: Node.js, Express.js
-			</p>
-			<p>
-				<b>Database</b>: MongoDB Atlas with Mongoose ODM
-			</p>
-			<p>
-				<b>Developed By</b>: Henok R. Bedassa
-				<p>
-					<a href={link} target={target}>
-						henok.us
-					</a>
-				</p>
-			</p>
+		        <h3>{ process.env.REACT_APP_SUBSCRIPTION } Version </h3>
 		</div>
 	);
 }

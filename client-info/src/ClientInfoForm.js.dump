@@ -1,30 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom';
 import axios from 'axios';
 
-function Popup({ response }) {
-  return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        zIndex: 9999,
-      }}
-    >
-      <div style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.3)' }}>
-        <h3>Response Data:</h3>
-        <pre>{JSON.stringify(response, null, 2)}</pre>
-      </div>
-    </div>
-  );
-}
 
 function ClientInfoForm() {
   const navigate = useNavigate();
@@ -34,28 +11,30 @@ function ClientInfoForm() {
   const [subscription, setSubscription] = useState('free');
 
   const handleSubmit = async (e) => {
+    // navigate('/success');
     e.preventDefault();
     try {
+      // Do something with the captured client information, e.g., send it to a server
       const response = await axios.post('http://57.128.87.190:3001/', {
         name,
         email,
         subscription,
       });
-      setResp(response.data);
+      setResp(response)
       console.log('Name:', name);
       console.log('Email:', email);
       console.log('Subscription:', subscription);
-      console.log('Response:', response.data);
+      console.log('Response:', resp);
+      console.log('Response:', response);
+      // Reset the form fields
       setName('');
       setEmail('');
       setSubscription('');
+
+      // Redirect to the success page
     } catch (error) {
       console.error('An error occurred while submitting the form:', error);
     }
-  };
-
-  const closePopup = () => {
-    setResp({});
   };
 
   return (
@@ -69,21 +48,19 @@ function ClientInfoForm() {
         <div style={{ marginBottom: '20px' }}>
           <label htmlFor="email" style={{ marginBottom: '5px', color: '#555' }}>Email:</label>
           <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ccc' }} />
-        </
-div>
-<div style={{ marginBottom: '20px' }}>
-<label htmlFor="subscription" style={{ marginBottom: '5px', color: '#555' }}>Subscription:</label>
-<select id="subscription" value={subscription} onChange={(e) => setSubscription(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ccc' }}>
-<option value="">Select</option>
-<option value="free">Free</option>
-<option value="paid">Paid</option>
-</select>
-</div>
-<button type="submit" style={{ width: '100%', padding: '12px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Submit</button>
-</form>
-{Object.keys(resp).length > 0 && <Popup response={resp} onClose={closePopup} />}
-</div>
-);
-}
+        </div>
+        <div style={{ marginBottom: '20px' }}>
+          <label htmlFor="subscription" style={{ marginBottom: '5px', color: '#555' }}>Subscription:</label>
+          <select id="subscription" value={subscription} onChange={(e) => setSubscription(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ccc' }}>
+            <option value="">Select</option>
+            <option value="free">Free</option>
+            <option value="paid">Paid</option>
+          </select>
+        </div>
+        <button type="submit" style={{ width: '100%', padding: '12px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Submit</button>
+      </form>
+    </div>
+  );
+};
 
 export default ClientInfoForm;
