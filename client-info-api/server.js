@@ -38,6 +38,10 @@ async function sendEmail(clientName, nodeIP, nodePort, clientEmail) {
   }
 }
 
+app.get('/', (req, res) => {
+	res.send(' client api ');
+})
+
 // Route to receive client information and execute the script
 app.post('/', (req, res) => {
   const { name, email, subscription } = req.body;

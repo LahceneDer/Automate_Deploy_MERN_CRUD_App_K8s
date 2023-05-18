@@ -17,6 +17,8 @@ spec:
       containers:
         - name: frontend
           image: lahcenedergham/k8s-frontend-app
+          ports:
+            - containerPort: 3000
           env:
             - name: REACT_APP_CLIENT_NAME
               value: "{{ .Values.clientName }}"
@@ -39,4 +41,3 @@ spec:
       port: 80
       targetPort: 3000
         # nodePort: {{ .Values.frontend.nodePort }}
-
