@@ -11,19 +11,46 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors()); // Enable CORS for all routes
 
-app.get('/api', (req, res) => {
-	res.send('welcome to api');
+// Function to send email using Nodemailer
+async function sendEmail(clientName, nodeIP, nodePort, clientEmail) {
+  let transporter = nodemailer.createTransport({
+    host: '57.128.87.190',
+    port: 587,
+    secure: false,
+    auth: {
+      user: 'l.dergham@esi-sba.dz',
+      pass: '1161996Lahcene@',
+    },
+  });
+
+  let message = {
+    from: 'your_email',
+    to: clientEmail,
+    subject: 'Your Website Creation',
+    text: `Dear ${clientName},\n\nYour website has been created successfully.\n\nNode IP: ${nodeIP}\nNode Port: ${nodePort}\n\nThank you for choosing our services!\n\nBest regards,\nThe Website Creation Team`,
+  };
+
+  try {
+    let info = await transporter.sendMail(message);
+    console.log('Email sent: ', info.messageId);
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
+}
+
+app.get('/', (req, res) => {
+	res.send(' client api ');
 })
 
 // Route to receive client information and execute the script
-app.post('/api', (req, res) => {
+app.post('/', (req, res) => {
   const { name, email, subscription } = req.body;
     console.log(name);
     console.log(email);
     console.log(subscription);
   // Execute the bash script with the provided information
-   const command = `sh create-app.sh "${name}" "${subscription}" `;
-    exec(
+  const command = `bash ../scripts/create-app.sh "${name}" "${subscription}" `;
+   exec(
     command,
     (error, stdout) => {
       if (error) {
@@ -59,6 +86,6 @@ app.post('/api', (req, res) => {
 
 // Start the server
 const port = 3000;
-app.listen(port ,() => {
+app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

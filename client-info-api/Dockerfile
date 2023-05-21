@@ -10,8 +10,13 @@ COPY package*.json ./
 # Install the dependencies
 RUN npm install
 
+# Copy the script
+COPY create-app.sh .
+
 # Copy the rest of the application code to the working directory
 COPY . .
+
+EXPOSE 3000
 
 # Set the command to run the application
 CMD ["node", "server.js"]
