@@ -2,34 +2,61 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 
-function Popup({ response }) {
+
+function Popup({ response, onClose }) {
   const formattedDate = new Date(response.lastDeployed).toLocaleString();
 
-  return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        zIndex: 9999,
-      }}
-    >
-      <div style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.3)' }}>
-        <h3>Response Data:</h3>
-        <p>Last Deployed: {formattedDate}</p>
-        <p>Message: {response.message}</p>
-        <p>App link: <a href={`http://${response.nodeIP}:${response.nodePort}`}> Click here !!! </a></p>
-	<p>Node IP: {response.nodeIP}</p>
-        <p>Node Port: {response.nodePort}</p>
+  if (response.status === "deployed") {
+    return (
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          zIndex: 9999,
+        }}
+      >
+        <div style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.3)' }}>
+          <h3>Response Data:</h3>
+          <p>Last Deployed: {formattedDate}</p>
+          <p>Status: {response.status}</p>
+          <p>Message: {response.message}</p>
+          <p>Node IP: {response.nodeIP}</p>
+          <p>Node Port: {response.nodePort}</p>
+          <p>App link: <a target="_blank" href={`http://${response.nodeIP}:${response.nodePort}`}>Click here!!!</a></p>
+	    <button onClick={onClose}style={{ backgroundColor: '#f44336', color: '#fff', padding: '8px 16px', borderRadius: '4px', border: 'none', cursor: 'pointer' }}>Close</button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          zIndex: 9999,
+        }}
+      >
+        <div style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.3)' }}>
+          <p>Error: App deployment failed</p>
+	    <button onClick={onClose} style={{ backgroundColor: '#f44336', color: '#fff', padding: '8px 16px', borderRadius: '4px', border: 'none', cursor: 'pointer' }}>Close</button>
+        </div>
+      </div>
+    );
+  }
 }
 
 function ClientInfoForm() {
@@ -41,7 +68,7 @@ function ClientInfoForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://141.94.209.120:30001/api', {
+      const response = await axios.post('http://141.94.209.120:30002/api', {
         name,
         email,
         subscription,
