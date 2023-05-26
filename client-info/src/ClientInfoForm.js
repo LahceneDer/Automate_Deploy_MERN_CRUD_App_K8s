@@ -68,7 +68,7 @@ function ClientInfoForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://141.94.209.120:30002/api', {
+      const response = await axios.post('http://K8S_NODE_IP:30002/api', {
         name,
         email,
         subscription,
